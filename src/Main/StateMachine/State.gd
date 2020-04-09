@@ -1,5 +1,5 @@
 extends Node
-class_name State, "res://assets/icons/state.svg"
+class_name State, 'res://assets/icons/state.svg'
 
 # State interface to use in Hierarchical State Machines.
 # The lowest leaf tries to handle callbacks, and if it can't, it delegates the work to its parent.
@@ -22,6 +22,6 @@ func exit() -> void:
 
 # TODO: Look to change signature to highlight that a StateMachine node will always be returned
 func _get_state_machine(node: Node) -> Node:
-	if node != null and not node.is_in_group("state_machine"):
+	if node != null and not node.is_in_group('state_machine'):
 		return _get_state_machine(node.get_parent())
 	return node
