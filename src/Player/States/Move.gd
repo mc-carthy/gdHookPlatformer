@@ -11,6 +11,10 @@ var max_velocity: Vector2 = max_velocity_default
 var acceleration: Vector2 = acceleration_default
 var velocity: Vector2 = Vector2.ZERO
 
+func _unhandled_input(event: InputEvent) -> void:
+	if owner.is_on_floor() and event.is_action_pressed('jump'):
+		_state_machine.transition_to('Move/Air', { impulse = jump_impulse })
+
 func physics_process(delta: float) -> void:
 	velocity = calculate_velocity(velocity, max_velocity, acceleration, delta, get_move_direction())
 	velocity = owner.move_and_slide(velocity, owner.FLOOR_NORMAL)
