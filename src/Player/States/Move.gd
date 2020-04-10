@@ -11,7 +11,7 @@ var max_velocity: Vector2 = max_velocity_default
 var acceleration: Vector2 = acceleration_default
 var velocity: Vector2 = Vector2.ZERO
 
-func physics_processs(delta: float) -> void:
+func physics_process(delta: float) -> void:
 	velocity = calculate_velocity(velocity, max_velocity, acceleration, delta, get_move_direction())
 	velocity = owner.move_and_slide(velocity, owner.FLOOR_NORMAL)
 

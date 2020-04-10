@@ -10,7 +10,7 @@ func physics_process(delta: float) -> void:
 			_state_machine.transition_to('Move/Idle')
 	else:
 		_state_machine.transition_to('Move/Air')
-	move.phyics_process(delta)
+	move.physics_process(delta)
 
 func enter(msg: Dictionary = {}) -> void:
 	get_parent().enter(msg)
