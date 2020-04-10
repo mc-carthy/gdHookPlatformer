@@ -6,7 +6,7 @@ class_name State, 'res://assets/icons/state.svg'
 # It's up to the user to call the parent state's functions, e.g. `_parent.physics_process(delta)`
 # Use State as a child of a StateMachine node.
 
-onready var _stateMachine : StateMachine = _get_state_machine(self)
+onready var _stateMachine := _get_state_machine(self)
 
 func unhandled_input(event: InputEvent) -> void:
 	return
