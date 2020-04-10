@@ -5,10 +5,12 @@ extends State
 
 export var max_velocity_default: Vector2 = Vector2(500.0, 1500.0)
 export var acceleration_default: Vector2 = Vector2(100000.0, 3000.0)
+export var decceleration_default: Vector2 = Vector2(500.0, 3000.0)
 export var jump_impulse: float = 900.0
 
 var max_velocity: Vector2 = max_velocity_default
 var acceleration: Vector2 = acceleration_default
+var decceleration: Vector2 = decceleration_default
 var velocity: Vector2 = Vector2.ZERO
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -16,19 +18,27 @@ func _unhandled_input(event: InputEvent) -> void:
 		_state_machine.transition_to('Move/Air', { impulse = jump_impulse })
 
 func physics_process(delta: float) -> void:
-	velocity = calculate_velocity(velocity, max_velocity, acceleration, delta, get_move_direction())
+	velocity = calculate_velocity(velocity, max_velocity, acceleration, decceleration, delta, get_move_direction())
 	velocity = owner.move_and_slide(velocity, owner.FLOOR_NORMAL)
 
 static func calculate_velocity(
 	old_velocity: Vector2,
 	max_velocity: Vector2,
 	acceleration: Vector2,
+	decceleration: Vector2,
 	delta: float,
 	move_direction: Vector2
 ) -> Vector2:
 	
 	var new_velocity: Vector2 = old_velocity
-	new_velocity += move_direction * acceleration * delta
+	new_velocity.y += move_direction.y * acceleration.y * delta
+	if move_direction.x:
+		new_velocity.x += move_direction.x * acceleration.x * delta
+	elif abs(new_velocity.x) > 0.1:
+		new_velocity.x -= decceleration.x * delta * sign(new_velocity.x)
+		if sign(new_velocity.x) != sign(old_velocity.x):
+			new_velocity.x = 0
+		
 	new_velocity.x = clamp(new_velocity.x, -max_velocity.x, max_velocity.x)
 	new_velocity.y = clamp(new_velocity.y, -max_velocity.y, max_velocity.y)
 	

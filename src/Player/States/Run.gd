@@ -8,9 +8,8 @@ func unhandled_input(event: InputEvent) -> void:
 
 func physics_process(delta: float) -> void:
 	var move:= get_parent()
-	if owner.is_on_floor():
-		if move.get_move_direction().x == 0.0:
-			_state_machine.transition_to('Move/Idle')
+	if owner.is_on_floor() and move.velocity.length() < 1.0:
+		_state_machine.transition_to('Move/Idle')
 	else:
 		_state_machine.transition_to('Move/Air')
 	

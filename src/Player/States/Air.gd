@@ -37,6 +37,7 @@ func calculate_jump_velocity(impulse: float = 0.0) -> Vector2:
 		move.velocity,
 		move.max_velocity,
 		Vector2(0, impulse),
+		Vector2.ZERO,
 		1.0,
 		Vector2.UP
 	)
