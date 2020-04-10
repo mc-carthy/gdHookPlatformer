@@ -86,8 +86,8 @@ position = Vector2( 1560, 630 )
 position = Vector2( 440, 760 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 444.614, 674.767 )
+position = Vector2( 1200, 400 )
 current = true
-zoom = Vector2( 5, 5 )
+zoom = Vector2( 3, 3 )
 
 [editable path="Player"]
