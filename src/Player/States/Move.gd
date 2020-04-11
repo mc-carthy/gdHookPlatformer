@@ -6,7 +6,6 @@ extends State
 export var max_velocity_default: Vector2 = Vector2(500.0, 1500.0)
 export var acceleration_default: Vector2 = Vector2(100000.0, 3000.0)
 export var decceleration_default: Vector2 = Vector2(500.0, 3000.0)
-export var jump_impulse: float = 900.0
 
 var max_velocity: Vector2 = max_velocity_default
 var acceleration: Vector2 = acceleration_default
@@ -15,7 +14,7 @@ var velocity: Vector2 = Vector2.ZERO
 
 func _unhandled_input(event: InputEvent) -> void:
 	if owner.is_on_floor() and event.is_action_pressed('jump'):
-		_state_machine.transition_to('Move/Air', { impulse = jump_impulse })
+		_state_machine.transition_to('Move/Air', { impulse = true })
 
 func physics_process(delta: float) -> void:
 	velocity = calculate_velocity(velocity, max_velocity, acceleration, decceleration, delta, get_move_direction())

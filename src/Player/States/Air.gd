@@ -1,9 +1,21 @@
 extends State
 
 export var acceleration_x: float = 5000.0
+export var jump_impulse: float = 900.0
+export var max_jumps: int = 2
+var current_jumps: int = 0
+
+func jump():
+	var move:= get_parent()
+	current_jumps += 1
+	move.velocity.y = 0
+	move.velocity += calculate_jump_velocity(jump_impulse)
 
 func unhandled_input(event: InputEvent) -> void:
-	get_parent().unhandled_input(event)
+	var move = get_parent()
+	if event.is_action_pressed('jump') and current_jumps < max_jumps:
+		jump()
+	move.unhandled_input(event)
 
 func physics_process(delta: float) -> void:
 	var move:= get_parent()
@@ -24,9 +36,10 @@ func enter(msg: Dictionary = {}) -> void:
 		move.velocity = msg.velocity
 		move.max_speed.x = max(abs(msg.velocity.x), move.max_speed.x)
 	if 'impulse' in msg:
-		move.velocity += calculate_jump_velocity(msg.impulse)
+		jump()
 
 func exit() -> void:
+	current_jumps = 0
 	var move:= get_parent()
 	move.acceleration = move.acceleration_default
 	move.exit()
