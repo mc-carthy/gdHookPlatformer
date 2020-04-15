@@ -18,6 +18,7 @@ script = ExtResource( 6 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 2 )
+initial_state = NodePath("Aim")
 
 [node name="Aim" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )
