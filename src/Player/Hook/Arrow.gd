@@ -9,9 +9,6 @@ onready var start_length: float = head.position.x
 
 var hook_position: Vector2 = Vector2.ZERO setget set_hook_position
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("jump"):
-		self.hook_position = get_global_mouse_position()
 
 func set_hook_position(value: Vector2) -> void:
 	hook_position = value

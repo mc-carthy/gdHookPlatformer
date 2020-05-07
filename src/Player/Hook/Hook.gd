@@ -7,6 +7,8 @@ onready var arrow: Node2D = $Arrow
 onready var snap_detector: Area2D = $SnapDetector
 onready var cooldown: Timer = $Cooldown
 
+signal hooked_onto_target(target_global_position)
+
 var is_active: bool = true
 
 func can_hook() -> bool:
