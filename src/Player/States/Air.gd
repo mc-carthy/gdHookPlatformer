@@ -13,7 +13,7 @@ func jump():
 
 func unhandled_input(event: InputEvent) -> void:
 	var move = get_parent()
-	if event.is_action_pressed('jump') and current_jumps < max_jumps:
+	if event.is_action_pressed('jump') and current_jumps <= max_jumps:
 		jump()
 	move.unhandled_input(event)
 
