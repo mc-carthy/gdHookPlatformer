@@ -5,6 +5,26 @@ onready var ray_cast: RayCast2D = $RayCast2D
 
 var target: HookTarget setget set_target
 
+func _ready() -> void:
+	ray_cast.set_as_toplevel(true)
+
+func _physics_process(delta: float) -> void:
+	self.target = find_best_target()
+
+func find_best_target() -> HookTarget:
+	var closest_target: HookTarget = null
+	var targets = get_overlapping_areas()
+	for target in targets:
+		if not target.is_active:
+			continue
+		ray_cast.global_position = global_position
+		ray_cast.cast_to = target.global_position - ray_cast.global_position
+		if ray_cast.is_colliding():
+			continue
+		closest_target = target
+		break
+	return closest_target
+
 func has_target() -> bool:
 	return target != null
 
