@@ -48,6 +48,11 @@ config/name="Gd Hook Platformer"
 run/main_scene="res://src/Main/Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Steering="*res://src/Autoload/Steering.gd"
+Events="*res://src/Autoload/Events.gd"
+
 [display]
 
 window/size/width=1380

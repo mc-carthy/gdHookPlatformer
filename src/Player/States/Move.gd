@@ -12,6 +12,12 @@ var acceleration: Vector2 = acceleration_default
 var decceleration: Vector2 = decceleration_default
 var velocity: Vector2 = Vector2.ZERO
 
+func _on_hooked_onto_target(target_global_position: Vector2) -> void:
+	var to_target = target_global_position - owner.global_position
+	if owner.is_on_floor() and to_target.y > 0.0:
+		return
+	_state_machine.transition_to('Hook', { target_global_position = target_global_position, velocity = velocity })
+
 func _unhandled_input(event: InputEvent) -> void:
 	if owner.is_on_floor() and event.is_action_pressed('jump'):
 		_state_machine.transition_to('Move/Air', { impulse = true })
@@ -19,6 +25,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func physics_process(delta: float) -> void:
 	velocity = calculate_velocity(velocity, max_velocity, acceleration, decceleration, delta, get_move_direction())
 	velocity = owner.move_and_slide(velocity, owner.FLOOR_NORMAL)
+
+func enter(msg: Dictionary = {}) -> void:
+	owner.hook.connect('hooked_onto_target', self, '_on_hooked_onto_target')
+
+func exit() -> void:
+	owner.hook.disconnect('hooked_onto_target', self, '_on_hooked_onto_target')
 
 static func calculate_velocity(
 	old_velocity: Vector2,

@@ -34,7 +34,7 @@ func enter(msg: Dictionary = {}) -> void:
 	
 	if 'velocity' in msg:
 		move.velocity = msg.velocity
-		move.max_speed.x = max(abs(msg.velocity.x), move.max_speed.x)
+		move.max_velocity.x = max(abs(msg.velocity.x), move.max_velocity.x)
 	if 'impulse' in msg:
 		jump()
 
