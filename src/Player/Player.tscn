@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Player/Skin.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Main/StateMachine/StateMachine.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/Player/Hook/Hook.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/Player/States/Hook.gd" type="Script" id=9]
 [ext_resource path="res://src/Player/Spawn.gd" type="Script" id=10]
+[ext_resource path="res://src/Player/Die.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40, 40 )
@@ -33,6 +34,9 @@ initial_state = NodePath("Spawn")
 
 [node name="Spawn" type="Node" parent="StateMachine"]
 script = ExtResource( 10 )
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
 
 [node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource( 3 )

@@ -17,9 +17,6 @@ func _ready() -> void:
 	state.enter()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed('debug_spawn'):
-
-		transition_to('Spawn')
 	state.unhandled_input(event)
 
 func _physics_process(delta: float) -> void:
