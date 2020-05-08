@@ -1,6 +1,7 @@
 extends KinematicBody2D
 class_name Player
 
+onready var skin: Node2D = $Skin
 onready var state_machine: StateMachine = $StateMachine
 onready var collider: CollisionShape2D = $CollisionShape2D
 onready var hook: Hook = $Hook
@@ -14,3 +15,4 @@ func set_is_active(value: bool) -> void:
 	if not collider:
 		return
 	collider.disabled = not value
+	hook.is_active = value
