@@ -11,6 +11,7 @@ var max_velocity: Vector2 = max_velocity_default
 var acceleration: Vector2 = acceleration_default
 var decceleration: Vector2 = decceleration_default
 var velocity: Vector2 = Vector2.ZERO
+var dash_count: int = 0
 
 func _on_hooked_onto_target(target_global_position: Vector2) -> void:
 	var to_target = target_global_position - owner.global_position

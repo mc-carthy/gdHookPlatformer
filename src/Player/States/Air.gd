@@ -13,6 +13,10 @@ func jump():
 
 func unhandled_input(event: InputEvent) -> void:
 	var move = get_parent()
+	if move.dash_count == 0 and event.is_action_pressed('dash'):
+		move.dash_count += 1
+		_state_machine.transition_to('Move/Dash', { direction = owner.hook.raycast.cast_to.normalized()})
+		return
 	if event.is_action_pressed('jump') and current_jumps <= max_jumps:
 		jump()
 	move.unhandled_input(event)
@@ -22,6 +26,7 @@ func physics_process(delta: float) -> void:
 	move.physics_process(delta)
 	
 	if owner.is_on_floor():
+		move.dash_count = 0
 		if move.get_move_direction().x == 0.0:
 			_state_machine.transition_to('Move/Idle')
 		else:
