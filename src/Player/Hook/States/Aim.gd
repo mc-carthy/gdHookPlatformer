@@ -1,6 +1,8 @@
 extends State
 
 func unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed('slowdown'):
+		owner.slowdown = not owner.slowdown
 	if event.is_action_pressed('hook') and owner.can_hook():
 		_state_machine.transition_to('Aim/Charge')
 

@@ -5,6 +5,7 @@ func _on_cooldown_timeout() -> void:
 
 func enter(msg: Dictionary = {}) -> void:
 	owner.cooldown.connect('timeout', self, '_on_cooldown_timeout')
+	owner.slowdown = false
 	owner.cooldown.start()
 	var target: HookTarget = owner.snap_detector.target
 	owner.arrow.hook_position = target.global_position

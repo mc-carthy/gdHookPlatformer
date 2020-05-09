@@ -10,6 +10,7 @@ onready var cooldown: Timer = $Cooldown
 signal hooked_onto_target(target_global_position)
 
 var is_active: bool = true setget set_is_active
+var slowdown: bool = false setget set_slowdown
 
 func can_hook() -> bool:
 	return is_active and snap_detector.has_target() and cooldown.is_stopped()
@@ -25,3 +26,8 @@ func get_aim_direction() -> Vector2:
 
 func set_is_active(value: bool) -> void:
 	is_active = value
+	set_process_unhandled_input(value)
+
+func set_slowdown(value: bool) -> void:
+	slowdown = value
+	Engine.time_scale = 0.05 if slowdown else 1.0
