@@ -13,11 +13,11 @@ var decceleration: Vector2 = decceleration_default
 var velocity: Vector2 = Vector2.ZERO
 var dash_count: int = 0
 
-func _on_hooked_onto_target(target_global_position: Vector2) -> void:
+func _on_hooked_onto_target(target_global_position: Vector2, velocity_multiplier: float) -> void:
 	var to_target = target_global_position - owner.global_position
 	if owner.is_on_floor() and to_target.y > 0.0:
 		return
-	_state_machine.transition_to('Hook', { target_global_position = target_global_position, velocity = velocity })
+	_state_machine.transition_to('Hook', { target_global_position = target_global_position, velocity = velocity, velocity_multiplier = velocity_multiplier })
 
 func _unhandled_input(event: InputEvent) -> void:
 	if owner.is_on_floor() and event.is_action_pressed('jump'):

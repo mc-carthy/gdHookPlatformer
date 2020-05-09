@@ -2,7 +2,7 @@ extends State
 
 func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed('hook') and owner.can_hook():
-		_state_machine.transition_to('Aim/Fire')
+		_state_machine.transition_to('Aim/Charge')
 
 func physics_process(delta: float) -> void:
 	var cast: Vector2 = owner.get_aim_direction() * owner.raycast.cast_to.length()
