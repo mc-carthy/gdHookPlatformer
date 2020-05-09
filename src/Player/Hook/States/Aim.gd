@@ -5,7 +5,7 @@ func unhandled_input(event: InputEvent) -> void:
 		_state_machine.transition_to('Aim/Charge')
 
 func physics_process(delta: float) -> void:
-	var cast: Vector2 = owner.get_aim_direction() * owner.raycast.cast_to.length()
+	var cast: Vector2 = owner.get_aim_direction() * owner.raycast.length
 	var angle: float = cast.angle()
 	owner.raycast.cast_to = cast
 	owner.arrow.rotation = angle
