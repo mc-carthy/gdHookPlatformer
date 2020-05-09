@@ -20,6 +20,8 @@ func _on_hooked_onto_target(target_global_position: Vector2, velocity_multiplier
 	_state_machine.transition_to('Hook', { target_global_position = target_global_position, velocity = velocity, velocity_multiplier = velocity_multiplier })
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed('debug_move'):
+		_state_machine.transition_to('Debug')
 	if owner.is_on_floor() and event.is_action_pressed('jump'):
 		_state_machine.transition_to('Move/Air', { impulse = true })
 
