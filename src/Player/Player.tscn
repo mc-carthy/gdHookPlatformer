@@ -53,6 +53,10 @@ script = ExtResource( 5 )
 [node name="Air" type="Node" parent="StateMachine/Move"]
 script = ExtResource( 6 )
 
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/Move/Air"]
+wait_time = 0.25
+one_shot = true
+
 [node name="Dash" type="Node" parent="StateMachine/Move"]
 script = ExtResource( 12 )
 
