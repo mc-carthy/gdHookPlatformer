@@ -1,4 +1,4 @@
-tool
+#tool
 extends Position2D
 
 class_name Hook, 'res://assets/icons/icon_hook.svg'
@@ -7,7 +7,7 @@ const HOOKABLE_PHYSICS_LAYER: int = 2
 
 onready var raycast: RayCast2D = $RayCast2D
 onready var arrow: Node2D = $Arrow
-onready var snap_detector: SnapDetector = $SnapDetector
+onready var snap_detector: Area2D = $SnapDetector
 onready var cooldown: Timer = $Cooldown
 
 signal hooked_onto_target(target_global_position)

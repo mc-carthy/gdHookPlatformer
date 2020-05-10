@@ -1,4 +1,4 @@
-tool
+#tool
 extends Node2D
 
 const CIRCLE_POINTS_COUNT: int = 32

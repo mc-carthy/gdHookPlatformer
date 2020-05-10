@@ -24,11 +24,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Player/Player.gd"
 }, {
-"base": "Area2D",
-"class": "SnapDetector",
-"language": "GDScript",
-"path": "res://src/Player/Hook/SnapDetector.gd"
-}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -43,7 +38,6 @@ _global_script_class_icons={
 "Hook": "res://assets/icons/icon_hook.svg",
 "HookTarget": "",
 "Player": "",
-"SnapDetector": "",
 "State": "res://assets/icons/state.svg",
 "StateMachine": "res://assets/icons/state_machine.svg"
 }

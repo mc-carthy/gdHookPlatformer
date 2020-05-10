@@ -1,6 +1,6 @@
-tool
+#tool
 extends Area2D
-class_name SnapDetector
+#class_name SnapDetector
 
 onready var hooking_hint: Position2D = $HookHint
 onready var ray_cast: RayCast2D = $RayCast2D
