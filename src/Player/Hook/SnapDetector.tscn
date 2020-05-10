@@ -29,5 +29,6 @@ cast_to = Vector2( 100, 0 )
 collision_mask = 2
 
 [node name="HookHint" type="Position2D" parent="."]
+visible = false
 script = ExtResource( 2 )
 colour = Color( 0.105882, 0.72549, 0.752941, 1 )

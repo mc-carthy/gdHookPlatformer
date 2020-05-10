@@ -1,3 +1,4 @@
+tool
 extends Position2D
 
 class_name Hook, 'res://assets/icons/icon_hook.svg'
@@ -6,13 +7,24 @@ const HOOKABLE_PHYSICS_LAYER: int = 2
 
 onready var raycast: RayCast2D = $RayCast2D
 onready var arrow: Node2D = $Arrow
-onready var snap_detector: Area2D = $SnapDetector
+onready var snap_detector: SnapDetector = $SnapDetector
 onready var cooldown: Timer = $Cooldown
 
 signal hooked_onto_target(target_global_position)
 
 var is_active: bool = true setget set_is_active
 var slowdown: bool = false setget set_slowdown
+
+func _ready() -> void:
+	if Engine.editor_hint:
+		update()
+
+func _draw() -> void:
+	if not Engine.editor_hint:
+		return
+
+	var radius = snap_detector.calculate_length()
+	DrawingUtils.draw_circle_outline(self, Vector2.ZERO, radius, Color.lightgreen)
 
 func has_target() -> bool:
 	var has_target: bool = snap_detector.has_target()
