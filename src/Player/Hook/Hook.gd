@@ -2,6 +2,8 @@ extends Position2D
 
 class_name Hook, 'res://assets/icons/icon_hook.svg'
 
+const HOOKABLE_PHYSICS_LAYER: int = 2
+
 onready var raycast: RayCast2D = $RayCast2D
 onready var arrow: Node2D = $Arrow
 onready var snap_detector: Area2D = $SnapDetector
@@ -12,8 +14,21 @@ signal hooked_onto_target(target_global_position)
 var is_active: bool = true setget set_is_active
 var slowdown: bool = false setget set_slowdown
 
+func has_target() -> bool:
+	var has_target: bool = snap_detector.has_target()
+	if not has_target and raycast.is_colliding():
+		var collider: Object = raycast.get_collider()
+		has_target = collider.get_collision_layer_bit(HOOKABLE_PHYSICS_LAYER)
+	return has_target
+
 func can_hook() -> bool:
-	return is_active and snap_detector.has_target() and cooldown.is_stopped()
+	return is_active and has_target() and cooldown.is_stopped()
+
+func get_hook_target_position() -> Vector2:
+	return snap_detector.target.global_position if snap_detector.has_target() else raycast.get_collision_point()
+
+func get_hook_target() -> HookTarget:
+	return snap_detector.target
 
 func get_aim_direction() -> Vector2:
 	var direction: Vector2 = Vector2.ZERO

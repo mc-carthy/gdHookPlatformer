@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/theme/default.theme" type="Theme" id=1]
 [ext_resource path="res://src/UI/debug/DebugDock.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://src/Objects/HookTarget.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Player/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/Main/Game.gd" type="Script" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 200, 10 )
 
 [node name="Game" type="Node"]
 script = ExtResource( 8 )
@@ -83,6 +86,14 @@ position = Vector2( 1480, -600 )
 
 [node name="HookTarget4" parent="Level1" instance=ExtResource( 6 )]
 position = Vector2( 1560, 630 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Level1"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level1/StaticBody2D"]
+position = Vector2( 877.953, 236.372 )
+shape = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
 position = Vector2( 440, 760 )
