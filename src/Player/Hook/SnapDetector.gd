@@ -12,17 +12,31 @@ func _physics_process(delta: float) -> void:
 	self.target = find_best_target()
 
 func find_best_target() -> HookTarget:
-	var closest_target: HookTarget = null
+	force_update_transform()
 	var targets = get_overlapping_areas()
+	
+	if not targets:
+		return null
+	
+	var closest_target: HookTarget = null
+	var closest_target_distance: float = INF
 	for target in targets:
 		if not target.is_active:
 			continue
+		
+		var dist: float = global_position.distance_to(target.global_position)
+		if dist > closest_target_distance:
+			continue
+
+		
 		ray_cast.global_position = global_position
 		ray_cast.cast_to = target.global_position - ray_cast.global_position
+		ray_cast.force_raycast_update()
 		if ray_cast.is_colliding():
 			continue
+		closest_target_distance = dist
 		closest_target = target
-		break
+
 	return closest_target
 
 func has_target() -> bool:
