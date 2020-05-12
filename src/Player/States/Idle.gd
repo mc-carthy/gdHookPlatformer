@@ -1,5 +1,7 @@
 extends State
 
+onready var jump_delay_timer: Timer = $DelayedJump
+
 func unhandled_input(event: InputEvent) -> void:
 	var move:= get_parent()
 	move.unhandled_input(event)
@@ -17,6 +19,10 @@ func enter(msg: Dictionary = {}) -> void:
 	move.enter(msg)
 	move.max_velocity = move.max_velocity_default
 	move.velocity = Vector2.ZERO
+	
+	if not jump_delay_timer.is_stopped():
+		jump_delay_timer.stop()
+		_state_machine.transition_to('Move/Air', { impulse = true })
 
 func exit() -> void:
 	var move:= get_parent()

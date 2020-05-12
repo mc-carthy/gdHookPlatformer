@@ -1,9 +1,13 @@
 extends State
 
+signal jumped
+
 onready var coyote_timer: Timer = $CoyoteTimer
+
 export var acceleration_x: float = 5000.0
 export var jump_impulse: float = 900.0
 export var max_jumps: int = 3
+
 var current_jumps: int = 0
 
 func jump():
@@ -15,14 +19,16 @@ func jump():
 func unhandled_input(event: InputEvent) -> void:
 	var move = get_parent()
 	if event.is_action_pressed('jump'):
-		if move.velocity.y >= 0.0 and coyote_timer.time_left > 0.0 and current_jumps < max_jumps:
-			move.velocity = calculate_jump_velocity(jump_impulse)
+		emit_signal('jumped')
+		if current_jumps < max_jumps:
+			jump()
+		elif move.velocity.y >= 0.0 and coyote_timer.time_left > 0.0:
+			jump()
+
 	if move.dash_count == 0 and event.is_action_pressed('dash'):
 		move.dash_count += 1
 		_state_machine.transition_to('Move/Dash', { direction = owner.hook.raycast.cast_to.normalized()})
 		return
-	if event.is_action_pressed('jump') and current_jumps < max_jumps:
-		jump()
 	move.unhandled_input(event)
 
 func physics_process(delta: float) -> void:

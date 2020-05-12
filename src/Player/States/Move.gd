@@ -30,9 +30,11 @@ func physics_process(delta: float) -> void:
 	velocity = owner.move_and_slide(velocity, owner.FLOOR_NORMAL)
 
 func enter(msg: Dictionary = {}) -> void:
+	$Air.connect('jumped', $Idle.jump_delay_timer, 'start')
 	owner.hook.connect('hooked_onto_target', self, '_on_hooked_onto_target')
 
 func exit() -> void:
+	$Air.disconnect('jumped', $Idle.jump_delay_timer, 'start')
 	owner.hook.disconnect('hooked_onto_target', self, '_on_hooked_onto_target')
 
 static func calculate_velocity(
