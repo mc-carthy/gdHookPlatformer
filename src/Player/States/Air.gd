@@ -3,6 +3,7 @@ extends State
 signal jumped
 
 onready var coyote_timer: Timer = $CoyoteTimer
+onready var freeze_control_timer: Timer = $FreezeControls
 
 export var acceleration_x: float = 5000.0
 export var max_jumps: int = 3
@@ -32,7 +33,10 @@ func unhandled_input(event: InputEvent) -> void:
 
 func physics_process(delta: float) -> void:
 	var move:= get_parent()
-	move.physics_process(delta)
+	#move.physics_process(delta)
+	var direction: Vector2 = move.get_move_direction() if freeze_control_timer.is_stopped() else Vector2(sign(move.velocity.x), 1.0)
+	move.velocity = move.calculate_velocity(move.velocity, move.max_velocity, move.acceleration, move.decceleration, delta, direction)
+	move.velocity = owner.move_and_slide(move.velocity, owner.FLOOR_NORMAL)
 	
 	if owner.is_on_floor():
 		move.dash_count = 0
@@ -58,6 +62,7 @@ func enter(msg: Dictionary = {}) -> void:
 	if 'impulse' in msg:
 		jump(msg.impulse)
 	if 'wall_jump' in msg:
+		freeze_control_timer.start()
 		move.max_velocity.x = max(move.max_velocity_default.x, abs(move.velocity.x))
 	coyote_timer.start()
 

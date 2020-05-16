@@ -98,4 +98,8 @@ shape = SubResource( 1 )
 [node name="Player" parent="." instance=ExtResource( 7 )]
 position = Vector2( 440, 760 )
 
+[node name="Air" parent="Player/StateMachine/Move" index="2"]
+acceleration_x = 5000.0
+max_jumps = 3
+
 [editable path="Player"]

@@ -65,6 +65,10 @@ script = ExtResource( 6 )
 wait_time = 0.25
 one_shot = true
 
+[node name="FreezeControls" type="Timer" parent="StateMachine/Move/Air"]
+wait_time = 0.1
+one_shot = true
+
 [node name="Dash" type="Node" parent="StateMachine/Move"]
 script = ExtResource( 12 )
 
