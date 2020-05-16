@@ -22,7 +22,7 @@ func enter(msg: Dictionary = {}) -> void:
 	
 	if not jump_delay_timer.is_stopped():
 		jump_delay_timer.stop()
-		_state_machine.transition_to('Move/Air', { impulse = true })
+		_state_machine.transition_to('Move/Air', { impulse = move.jump_impulse })
 
 func exit() -> void:
 	var move:= get_parent()

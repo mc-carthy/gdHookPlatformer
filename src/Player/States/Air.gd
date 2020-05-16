@@ -5,25 +5,24 @@ signal jumped
 onready var coyote_timer: Timer = $CoyoteTimer
 
 export var acceleration_x: float = 5000.0
-export var jump_impulse: float = 900.0
 export var max_jumps: int = 3
 
 var current_jumps: int = 0
 
-func jump():
+func jump(impulse):
 	var move:= get_parent()
 	current_jumps += 1
 	move.velocity.y = 0
-	move.velocity += calculate_jump_velocity(jump_impulse)
+	move.velocity += calculate_jump_velocity(impulse)
 
 func unhandled_input(event: InputEvent) -> void:
 	var move = get_parent()
 	if event.is_action_pressed('jump'):
 		emit_signal('jumped')
 		if current_jumps < max_jumps:
-			jump()
+			jump(move.jump_impulse)
 		elif move.velocity.y >= 0.0 and coyote_timer.time_left > 0.0:
-			jump()
+			jump(move.jump_impulse)
 
 	if move.dash_count == 0 and event.is_action_pressed('dash'):
 		move.dash_count += 1
@@ -57,7 +56,7 @@ func enter(msg: Dictionary = {}) -> void:
 		move.velocity = msg.velocity
 		move.max_velocity.x = max(abs(msg.velocity.x), move.max_velocity.x)
 	if 'impulse' in msg:
-		jump()
+		jump(msg.impulse)
 	coyote_timer.start()
 
 func exit() -> void:
