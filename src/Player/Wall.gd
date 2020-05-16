@@ -12,7 +12,7 @@ func physics_process(delta: float) -> void:
 	if _velocity.y > max_slide_speed:
 		_velocity.y = lerp(_velocity.y, max_slide_speed, friction_factor)
 	elif _velocity.y < -max_slide_speed:
-		_velocity.y = lerp(_velocity.y, -max_slide_speed, friction_factor)
+		_velocity.y = max(_velocity.y, -max_slide_speed)
 	else:
 		_velocity.y += slide_acceleration * delta
 	_velocity = owner.move_and_slide(_velocity, owner.FLOOR_NORMAL)
@@ -27,8 +27,6 @@ func physics_process(delta: float) -> void:
 		_state_machine.transition_to('Move/Air', { velocity = _velocity })
 
 func enter(msg: Dictionary = {}) -> void:
-	assert(msg.wall_normal)
-	assert(msg.velocity)
 	var move = get_parent()
 	move.enter(msg)
 	
