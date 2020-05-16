@@ -3,9 +3,14 @@ extends State
 export var slide_acceleration: float = 1600.0
 export var max_slide_speed: float = 400.0
 export(float, 0.0, 1.0) var friction_factor: float = 0.15
+export var jump_strength: Vector2 = Vector2(700.0, 400.0)
 
 var _wall_normal: float
 var _velocity: Vector2
+
+func unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed('jump'):
+		jump()
 
 func physics_process(delta: float) -> void:
 	#_velocity.y = clamp(_velocity.y, -max_slide_speed, max_slide_speed)
@@ -35,3 +40,11 @@ func enter(msg: Dictionary = {}) -> void:
 
 func exit() -> void:
 	get_parent().exit()
+
+func jump() -> void:
+	var impulse: Vector2 = Vector2(_wall_normal, -1.0) * jump_strength
+	var msg: Dictionary = {
+		velocity = impulse,
+		wall_jump = true
+	}
+	_state_machine.transition_to('Move/Air', msg)

@@ -57,6 +57,8 @@ func enter(msg: Dictionary = {}) -> void:
 		move.max_velocity.x = max(abs(msg.velocity.x), move.max_velocity.x)
 	if 'impulse' in msg:
 		jump(msg.impulse)
+	if 'wall_jump' in msg:
+		move.max_velocity.x = max(move.max_velocity_default.x, abs(move.velocity.x))
 	coyote_timer.start()
 
 func exit() -> void:
