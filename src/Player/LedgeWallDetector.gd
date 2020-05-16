@@ -24,6 +24,9 @@ func is_against_ledge() -> bool:
 	return false
 	#return is_active and bottom_colliding and not top_colliding
 
+func is_against_wall() -> bool:
+	return is_active and (ray_top.is_colliding() or ray_bottom.is_colliding())
+
 func get_cast_to_directed() -> Vector2:
 	return ray_top.cast_to * scale
 
